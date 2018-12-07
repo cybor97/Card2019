@@ -1,0 +1,14 @@
+{
+  "name": "card2019",
+  "version": "1.0.0",
+  "description": "New year card 2019",
+  "main": "card.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "card"
+  ],
+  "author": "cybor97",
+  "license": "ISC"
+}

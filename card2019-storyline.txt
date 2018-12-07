@@ -1,0 +1,25 @@
+0. scene 0: black screen
+
+1. scene 1(pixelated)
+1.1 stars appear
+1.2 ground and christmas tree appears
+1.3 8-bit music starts
+1.4 snow starts
+1.5 santa comes to christmas tree
+1.6 screen goes black, music stops
+
+2. scene 2(pre-show)
+2.1 message "Just not that way!" appears
+2.2 screen blinks
+
+3. scene 3(show)
+3.1..3.4 same as 1-st, but with high-resolution assets, natural background and old-style ethernal-circled music
+3.5 christmas tree lights appears, "please, call santa" twist sound + same message appears with "wind effect"
+3.6 waiting for user click, react with specific sound("yo-ho-hou") or like that
+3.7 santa comes(either sky way(2ep), either by ground(1ep, detailed))
+3.8 santa jumps, moves, waiting for user click
+3.9 items falls down, waiting for user to place on christmas tree(mini-game, tinkling sound)
+3.10 on placed - santa gives(opacity+transition) you a present(under christmas-tree)
+3.11 present lights, blinks, waiting for user click
+3.12 words appear("magic" animation)
+3.13 modern music comes
