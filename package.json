@@ -10,5 +10,6 @@
     "card"
   ],
   "author": "cybor97",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }
