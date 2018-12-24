@@ -6,31 +6,28 @@ class IUIElement {
 
     //[{figureType:'', params:[], fill:true/false, delayAfter:Nms}]
     appear(data) {
-        let i = 0, lastFigure, lastFill, lastStroke;
+        let lastFigure, lastFill, lastStroke;
         console.log('Appear data: ', data);
 
-        return new Promise(resolve => {
-            let renderNext = () => {
-                if (!data[i].figureType) {
-                    data[i].figureType = lastFigure;
+        return Promise.all(data.map(c =>
+            new Promise(resolve => {
+                if (!c.figureType) {
+                    c.figureType = lastFigure;
                 }
-                if (!data[i].fill) {
-                    data[i].fill = lastFill;
+                if (!c.fill) {
+                    c.fill = lastFill;
                 }
-                if (!data[i].stroke) {
-                    data[i].lastStroke = lastStroke;
+                if (!c.stroke) {
+                    c.lastStroke = lastStroke;
                 }
-                lastFigure = data[i].figureType;
-                lastFill = data[i].fill;
-                lastStroke = data[i].stroke;
+                lastFigure = c.figureType;
+                lastFill = c.fill;
+                lastStroke = c.stroke;
 
-                this.graphics.render(data[i], this);
-                if (++i < data.length)
-                    setTimeout(renderNext, 100);
-                else resolve();
-            };
-            renderNext();
-        });
+                this.graphics.render(c, this);
+                resolve()
+            })
+        ));
     }
 
     render(data) {

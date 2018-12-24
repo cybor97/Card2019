@@ -1,6 +1,8 @@
 class Graphics {
     constructor(canvas) {
         this.context = canvas.getContext('2d');
+        this.width = canvas.width;
+        this.height = canvas.height;
         this.uiElements = [];
     }
 
@@ -31,6 +33,10 @@ class Graphics {
             else throw new Error('Cannot render block in uninitialized context!');
         }
         else throw new Error('UIElement should be registered to be rendered!');
+    }
+
+    clear() {
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 
     setFill(fill) {
