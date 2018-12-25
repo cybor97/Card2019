@@ -11,6 +11,7 @@ class Graphics {
     render(block, uiElement) {
         if (this.uiElements.indexOf(uiElement) != -1) {
             if (this.context) {
+
                 //TODO: Implement on-demand
                 switch (block.figureType) {
                     case 'rectangle':
@@ -24,7 +25,9 @@ class Graphics {
                             this.context.strokeRect(...block.params);
                         }
                         break;
-                    case '':
+                    case 'clearRect':
+                        console.log('Clear rect params: ', block.params);
+                        this.context.clearRect(...block.params);
                         break;
                     case '':
                         break;

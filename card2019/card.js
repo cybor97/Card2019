@@ -1,3 +1,5 @@
+let graphics = null;
+
 function init() {
     document.addEventListener('DOMContentLoaded', async () => {
         await scenePixelated();
@@ -13,18 +15,26 @@ async function scenePixelated() {
     canvas.width = displayWidth;
     canvas.height = displayHeight;
 
-    let graphics = new Graphics(canvas);
+    graphics = new Graphics(canvas);
     let pxStars = [];
 
     for (i = 0; i < 20; i++) {
         let pxStar = new PXStar(
-            { x: Math.random() * displayWidth, y: Math.random() * displayHeight },
+            { x: ~~(Math.random() * displayWidth), y: ~~(Math.random() * displayHeight) },
             { width: 10, height: 10 });
         pxStar.register(graphics);
         await pxStar.appear();
         pxStars.push(pxStar);
     }
-    return await new Promise(resolve => setInterval(resolve, 100));
+    while (true) {
+        await new Promise(resolve => setTimeout(resolve, 10))
+            .then(() => {
+                let pxStar = pxStars[~~(Math.random() * pxStars.length)];
+                pxStar.location.x = ~~(Math.random() * displayWidth);
+                pxStar.location.y = ~~(Math.random() * displayHeight);
+                pxStar.invalidate();
+            });
+    }
 }
 
 async function scenePreshow() {
