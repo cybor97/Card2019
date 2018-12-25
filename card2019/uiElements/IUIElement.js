@@ -1,7 +1,14 @@
 class IUIElement {
-    constructor(location = { x: 0, y: 0 }, size = { width: 0, height: 0 }) {
+    constructor(
+        location = { x: 0, y: 0 },
+        size = { width: 0, height: 0 },
+        foreground = null, background = null) {
+
         this.location = location;
         this.size = size;
+
+        this.foreground = foreground;
+        this.background = background;
 
         this.rerenderRequested = false;
         this.rerenderIntervalId = -1;

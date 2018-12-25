@@ -13,9 +13,9 @@ class PXStar extends IUIElement {
         return super.appear([
             {
                 figureType: 'rectangle',
-                params: [x + widthOffset + 1, y + heightOffset + 1, partWidth, partHeight],
-                fill: '#ff0',
-                stroke: '#ff0'
+                params: [x + widthOffset, y + heightOffset, partWidth, partHeight],
+                fill: this.background || '#ff0',
+                stroke: this.foreground || '#ff0'
             },
             {
                 params: [x + width - partWidth - widthOffset, y + heightOffset, partWidth, partHeight],
@@ -33,6 +33,13 @@ class PXStar extends IUIElement {
     }
 
     render() {
+        if (this.background || this.stroke) {
+            for (let figure of this.figureData) {
+                figure.fill = this.background;
+                figure.stroke = this.foreground;
+            }
+        }
+
         return super.render(this.figureData);
     }
 
