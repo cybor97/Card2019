@@ -7,12 +7,13 @@ class PXStar extends IUIElement {
         let partWidth = ~~(width / 3), partHeight = ~~(height / 3),
             x = this.location.x, y = this.location.y;
 
-        let widthOffset = partWidth * this.offsetCoef, heightOffset = partHeight * this.offsetCoef;
+        let widthOffset = ~~(partWidth * this.offsetCoef) || 1,
+            heightOffset = ~~(partHeight * this.offsetCoef) || 1;
 
         return super.appear([
             {
                 figureType: 'rectangle',
-                params: [x + widthOffset, y + heightOffset, partWidth, partHeight],
+                params: [x + widthOffset + 1, y + heightOffset + 1, partWidth, partHeight],
                 fill: '#ff0',
                 stroke: '#ff0'
             },

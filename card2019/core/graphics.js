@@ -12,7 +12,6 @@ class Graphics {
         if (this.uiElements.indexOf(uiElement) != -1) {
             if (this.context) {
 
-                //TODO: Implement on-demand
                 switch (block.figureType) {
                     case 'rectangle':
                         console.log('Block params: ', block.params);

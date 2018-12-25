@@ -39,8 +39,7 @@ class IUIElement {
                     .then(this.graphics.render(
                         {
                             figureType: 'clearRect',
-                            //FIXME: Remove hardcoded offsets, round params well
-                            params: [this.lastX - 1, this.lastY - 1, this.size.width + 2, this.size.height + 2]
+                            params: [this.lastX, this.lastY, this.size.width, this.size.height]
                         }, this)
                     )
                     .then(this.render.call(this, this.figureData))
