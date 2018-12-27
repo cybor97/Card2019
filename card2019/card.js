@@ -6,6 +6,8 @@ let graphics = null;
 
 let displayWidth = 0, displayHeight = 0;
 
+const PX_FRACTION_SIZE = 20;
+
 function init() {
     document.addEventListener('DOMContentLoaded', async () => {
         canvas = document.getElementById('targetCanvas');
@@ -39,9 +41,16 @@ function init() {
 async function scenePixelated() {
     let pxStars = [];
 
+    let pxDecorations = new PXDecorations(
+        { x: 0, y: 0 },
+        { width: displayWidth, height: displayHeight }
+    );
+    pxDecorations.register(graphics);
+    await pxDecorations.appear();
+
     for (i = 0; i < 20; i++) {
         let pxStar = new PXStar(
-            { x: randomInt(0, displayWidth), y: randomInt(0, displayHeight) },
+            { x: randomInt(0, displayWidth), y: randomInt(0, ~~(displayHeight * 0.9)) },
             { width: 11, height: 11 });
         pxStar.register(graphics);
         await pxStar.appear();
@@ -57,7 +66,7 @@ async function scenePixelated() {
         pxStarsBlinkIntervalId = setInterval(() => {
             let pxStar = pxStars[~~(Math.random() * pxStars.length)];
             pxStar.location.x = randomInt(0, displayWidth);
-            pxStar.location.y = randomInt(0, displayHeight);
+            pxStar.location.y = randomInt(0, ~~(displayHeight * 0.85));
             pxStar.background = `rgb(${randomInt(200, 255)}, ${randomInt(180, 255)}, 0)`;
             pxStar.invalidate();
         }, 100);
