@@ -4,6 +4,22 @@ class Graphics {
         this.width = canvas.width;
         this.height = canvas.height;
         this.uiElements = [];
+
+        //background re-render
+        this.rerenderIntervalId = setInterval(() => {
+            for (let uiElement of this.uiElements)
+                if (uiElement.rerenderRequested) {
+                    Promise.resolve()
+                        .then(this.render(
+                            {
+                                figureType: 'clearRect',
+                                params: [uiElement.lastX, uiElement.lastY, uiElement.size.width, uiElement.size.height]
+                            }, uiElement)
+                        )
+                        .then(uiElement.render.call(uiElement, uiElement.figureData))
+                        .then(() => uiElement.rerenderRequested = false);
+                }
+        }, 100);
     }
 
     //{figureType:'', params:[], fill:fillType, stroke:strokeType}
@@ -11,10 +27,8 @@ class Graphics {
     render(block, uiElement) {
         if (this.uiElements.indexOf(uiElement) != -1) {
             if (this.context) {
-
                 switch (block.figureType) {
                     case 'rectangle':
-                        console.log('Block params: ', block.params);
                         if (block.fill) {
                             this.setFill(block.fill);
                             this.context.fillRect(...block.params);
@@ -25,10 +39,11 @@ class Graphics {
                         }
                         break;
                     case 'clearRect':
-                        console.log('Clear rect params: ', block.params);
                         this.context.clearRect(...block.params);
                         break;
-                    case '':
+                    case 'image':
+                        console.log(...block.params);
+                        this.context.drawImage(...block.params);
                         break;
                 }
             }
@@ -37,7 +52,14 @@ class Graphics {
         else throw new Error('UIElement should be registered to be rendered!');
     }
 
-    clear() {
+    async clear(force) {
+        if (force) {
+            while (this.uiElements.length > 0) {
+                let element = this.uiElements[0];
+                await element.fade();
+                element.dispose();
+            }
+        }
         this.context.clearRect(0, 0, this.width, this.height);
     }
 
@@ -55,5 +77,9 @@ class Graphics {
 
     unregister(uiElement) {
         this.uiElements.splice(this.uiElements.indexOf(uiElement), 1);
+    }
+
+    dispose() {
+        clearInterval(this.rerenderIntervalId);
     }
 }

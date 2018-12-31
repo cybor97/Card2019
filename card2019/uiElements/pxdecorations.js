@@ -1,5 +1,3 @@
-// import IUIElement from './IUIElement';
-
 class PXDecorations extends IUIElement {
     appear() {
         return super.appear([
@@ -10,12 +8,4 @@ class PXDecorations extends IUIElement {
                 stroke: this.foreground || '#fff'
             }])
     }
-
-    // render() {
-    //     super.render();
-    // }
-
-    // fade() {
-    //     super.fade();
-    // }
 }

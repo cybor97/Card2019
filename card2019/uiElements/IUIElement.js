@@ -39,43 +39,30 @@ class IUIElement {
         });
         this.figureData = data;
 
-        //background re-render
-        this.rerenderIntervalId = setInterval(() => {
-            if (this.rerenderRequested) {
-                Promise.resolve()
-                    .then(this.graphics.render(
-                        {
-                            figureType: 'clearRect',
-                            params: [this.lastX, this.lastY, this.size.width, this.size.height]
-                        }, this)
-                    )
-                    .then(this.render.call(this, this.figureData))
-                    .then(() => this.rerenderRequested = false);
-            }
-        }, 100);
-
         return this.render(data);
     }
 
     render(data) {
-        for (let figure of data) {
-            if (this.location.x != this.lastX) {
-                figure.params[0] += this.location.x - this.lastX;
+        if (data) {
+            for (let figure of data) {
+                if (this.location.x != this.lastX) {
+                    figure.params[0] += this.location.x - this.lastX;
+                }
+                if (this.location.y != this.lastY) {
+                    figure.params[1] += this.location.y - this.lastY;
+                }
             }
-            if (this.location.y != this.lastY) {
-                figure.params[1] += this.location.y - this.lastY;
-            }
+
+            this.lastX = this.location.x;
+            this.lastY = this.location.y;
+
+            return Promise.all(data.map(c => Promise.resolve().then(() => this.graphics.render(c, this))));
         }
-
-        this.lastX = this.location.x;
-        this.lastY = this.location.y;
-
-        return Promise.all(data.map(c => Promise.resolve().then(() => this.graphics.render(c, this))));
     }
 
     fade(data) {
-        //TODO: Review
-        clearInterval(this.rerenderIntervalId);
+        this.figureData = [];
+        this.invalidate();
         return this.render(data);
     }
 

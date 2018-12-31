@@ -1,5 +1,5 @@
 import IUIElement from './IUIElement';
 
-export class PXSanta extends IUIElement {
+class PXSanta extends IUIElement {
 
 }

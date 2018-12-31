@@ -1,3 +1,8 @@
+/*
+ # # 
+  #
+ # #
+*/
 class PXStar extends IUIElement {
 
     appear() {
