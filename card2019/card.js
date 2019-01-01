@@ -202,8 +202,6 @@ async function sceneShow() {
         await hqSnowflake.appear();
         hqSnowflakes.push(hqSnowflake);
     }
-    await audio.play();
-
 
     setInterval(() => {
         for (let snowflake of hqSnowflakes) {
@@ -265,6 +263,7 @@ async function sceneShow() {
     for (let present of hqPresents) {
         await present.appear();
     }
+    await audio.play();
     let presentsDownInterval = 0;
     await new Promise(resolve =>
         presentsDownInterval = setInterval(() => {
