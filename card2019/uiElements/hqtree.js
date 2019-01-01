@@ -13,10 +13,10 @@ class HQTree extends IUIElement {
             {
                 figureType: 'image',
                 params: [
-                    this.treeImage,
                     this.location.x, this.location.y,
-                    this.size.width, this.size.height
+                    this.size.width, this.size.height,
                 ],
+                image: this.treeImage,
             }
         ]);
     }

@@ -23,18 +23,18 @@ class HQDecorations extends IUIElement {
             {
                 figureType: 'image',
                 params: [
-                    this.backgroundImage,
                     this.location.x + 50, this.location.y + 50,
-                    50, 50
+                    50, 50,
                 ],
+                image: this.backgroundImage,
             },
             {
                 figureType: 'image',
                 params: [
-                    this.snowGroundImage,
                     this.location.x, this.location.y + (this.size.height - ~~(this.size.height / 10)),
-                    this.size.width, ~~(this.size.height / 10)
+                    this.size.width, ~~(this.size.height / 10),
                 ],
+                image: this.snowGroundImage,
             }
         ]);
     }

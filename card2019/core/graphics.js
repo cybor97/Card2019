@@ -42,8 +42,7 @@ class Graphics {
                         this.context.clearRect(...block.params);
                         break;
                     case 'image':
-                        console.log(...block.params);
-                        this.context.drawImage(...block.params);
+                        this.context.drawImage(block.image, ...block.params);
                         break;
                 }
             }
