@@ -128,8 +128,8 @@ async function scenePreshow() {
     await new Promise(resove => setTimeout(resove, 2000));
     preclick.style.display = 'none';
 
+    await audio.pause();
     audio.src = './assets/audio/cascada.mp3';
-    await audio.play();
 }
 
 async function sceneShow() {
@@ -202,6 +202,8 @@ async function sceneShow() {
         await hqSnowflake.appear();
         hqSnowflakes.push(hqSnowflake);
     }
+    await audio.play();
+
 
     setInterval(() => {
         for (let snowflake of hqSnowflakes) {
