@@ -13,6 +13,7 @@ function init() {
         canvas = document.getElementById('targetCanvas');
         audio = document.getElementById('targetAudio');
         preclick = document.getElementById('targetPreclick');
+        preclick.style.userSelect = 'none';
 
         preclick.innerText = 'Нажмите сюда!';
 
@@ -244,9 +245,12 @@ async function sceneShow() {
     }, 20);
 
     await new Promise(resolve => document.body.addEventListener('click',
-        this.documentClick = () => {
-            document.body.removeEventListener('click', this.documentClick);
-            resolve();
+        this.documentClick = e => {
+            if (e.clientX >= hqSanta.location.x && e.clientX <= hqSanta.location.x + hqSanta.size.width &&
+                e.clientY >= hqSanta.location.y && e.clientY <= hqSanta.location.y + hqSanta.size.height) {
+                document.body.removeEventListener('click', this.documentClick);
+                resolve();
+            }
         }));
     preclick.style.display = 'none';
 
@@ -279,10 +283,26 @@ async function sceneShow() {
     preclick.style.display = 'block';
     preclick.innerText = 'Нажмите на подарок';
 
+    let minPresentX = displayWidth, minPresentY = displayHeight,
+        maxPresentX = 0, maxPresentY = 0;
+    for (let present of hqPresents) {
+        if (present.location.x < minPresentX)
+            minPresentX = present.location.x;
+        if (present.location.y < minPresentY)
+            minPresentY = present.location.y;
+        if (present.location.x + present.size.width > maxPresentX)
+            maxPresentX = present.location.x + present.size.width;
+        if (present.location.y + present.size.height > maxPresentY)
+            maxPresentY = present.location.y + present.size.height;
+    }
+
     await new Promise(resolve => document.body.addEventListener('click',
-        this.documentClick = () => {
-            document.body.removeEventListener('click', this.documentClick);
-            resolve();
+        this.documentClick = e => {
+            if (e.clientX >= minPresentX && e.clientX <= maxPresentX &&
+                e.clientY >= minPresentY && e.clientY <= maxPresentY) {
+                document.body.removeEventListener('click', this.documentClick);
+                resolve();
+            }
         }));
 
     preclick.style.background = '#232323aa';
@@ -291,8 +311,8 @@ async function sceneShow() {
     preclick.style.borderRadius = '5px';
     preclick.style.shadow = '#232323 2px 2px 3px';
     preclick.style.textAlign = 'center';
-    preclick.style.userSelect = 'none';
 
+    preclick.innerText = 'С новым годом!';
     let pre = document.createElement('pre');
     let textMatch = document.location.href.split('#');
     if (textMatch) {
